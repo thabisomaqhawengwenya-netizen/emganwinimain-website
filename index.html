@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#3e6698">
   <meta
     name="description"
     content="Emganwini Main Seventh-day Adventist Church is a Christ-centered community for worship, Bible study, fellowship, and service."
   >
   <title>Emganwini Main Seventh-day Adventist Church</title>
-  <link rel="icon" type="image/png" href="images/sdalogo-removebg-preview.png">
+  <link rel="icon" type="image/png" href="images/sdalogo-brand.png">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -25,7 +26,7 @@
     <div class="container nav-shell">
       <a class="brand" href="#top" aria-label="Emganwini Main Seventh-day Adventist Church home">
         <span class="brand-mark">
-          <img class="brand-logo" src="images/sdalogo-removebg-preview.png" alt="">
+          <img class="brand-logo" src="images/sdalogo-white.png" alt="">
         </span>
         <span class="brand-copy">
           <span class="brand-name">Emganwini Main Church</span>
@@ -50,75 +51,94 @@
         <a href="#about">About</a>
         <a href="#worship">Worship</a>
         <a href="#ministries">Ministries</a>
-        <a href="#sermons">Messages</a>
         <a href="#events">Events</a>
-        <a href="#beliefs">Beliefs</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact">Contact</a>
+        <div class="nav-dropdown">
+          <button
+            class="nav-dropdown-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="nav-more-menu"
+          >
+            More
+          </button>
+          <div class="nav-dropdown-menu" id="nav-more-menu">
+            <a href="#sermons">Messages</a>
+            <a href="#beliefs">Beliefs</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+        <a href="#donate" class="nav-donate">Donate</a>
       </nav>
     </div>
   </header>
 
   <main id="main-content">
     <section class="hero section">
-      <div class="container hero-grid">
-        <div class="hero-copy reveal">
-          <p class="eyebrow">A Christ-centered church family for every generation</p>
-          <h1>Worship, rest, and grow in faith with us each Sabbath.</h1>
-          <p class="hero-text">
-            Emganwini Main Seventh-day Adventist Church is a welcoming community where Scripture is
-            cherished, prayer is practiced, and people are invited into a living hope in Jesus
-            Christ.
-          </p>
+      <div class="container hero-shell">
+        <div class="hero-content reveal">
+          <div class="hero-layout">
+            <div class="hero-main">
+              <p class="eyebrow">Welcome to Emganwini Main</p>
+              <h1>Faith, fellowship, and hope for every heart.</h1>
+              <p class="hero-text">
+                Emganwini Main Seventh-day Adventist Church is a warm church home where Scripture is treasured,
+                worship is joyful, and every visitor is invited to grow in Christ and community.
+              </p>
 
-          <div class="hero-actions">
-            <a class="button button-primary" href="#contact">Plan Your Visit</a>
-            <a class="button button-secondary" href="#sermons">Watch Messages</a>
+              <div class="hero-actions">
+                <a class="button button-primary" href="#about">Explore</a>
+                <a class="button button-donate" href="#donate">Donate</a>
+              </div>
+            </div>
+
+            <aside class="hero-side">
+              <ul class="hero-details" aria-label="Service highlights">
+                <li>
+                  <strong>Sabbath School</strong>
+                  <span>Saturday at 9:00 AM</span>
+                </li>
+                <li>
+                  <strong>Divine Service</strong>
+                  <span>Saturday at 11:00 AM</span>
+                </li>
+                <li>
+                  <strong>Prayer Meeting</strong>
+                  <span>Wednesday at 6:30 PM</span>
+                </li>
+              </ul>
+            </aside>
           </div>
-
-          <ul class="hero-details" aria-label="Service highlights">
-            <li>
-              <strong>Sabbath School</strong>
-              <span>Saturday at 9:00 AM</span>
-            </li>
-            <li>
-              <strong>Divine Service</strong>
-              <span>Saturday at 11:00 AM</span>
-            </li>
-            <li>
-              <strong>Prayer Meeting</strong>
-              <span>Wednesday at 6:30 PM</span>
-            </li>
-          </ul>
         </div>
+      </div>
+    </section>
 
-        <aside class="hero-panel reveal">
-          <div class="panel-logo-wrap">
-            <img class="panel-logo" src="images/sdalogo-removebg-preview.png" alt="Seventh-day Adventist Church logo">
-          </div>
-          <p class="panel-label">This Sabbath</p>
-          <h2>Come exactly as you are.</h2>
-          <p>
-            Whether you are exploring faith, returning to church, or searching for a spiritual home,
-            there is room for you here.
-          </p>
-
-          <div class="hero-panel-list">
-            <article>
-              <h3>Guest Welcome</h3>
-              <p>Our greeters can help with parking, children&apos;s classes, and finding your seat.</p>
-            </article>
-            <article>
-              <h3>Meaningful Worship</h3>
-              <p>Expect prayerful music, biblical preaching, and a warm, respectful atmosphere.</p>
-            </article>
+    <section class="section section-donate" id="donate">
+      <div class="container">
+        <div class="donate-shell reveal">
+          <div class="donate-copy">
+            <p class="eyebrow">Support the Mission</p>
+            <h2>Give with joy and help strengthen worship, outreach, and care.</h2>
+            <p>
+              Your generosity helps Emganwini Main Church support gospel ministry, youth development,
+              family care, community outreach, and special church projects that bless our neighborhood.
+            </p>
           </div>
 
-          <blockquote class="hero-verse">
-            “Let all that you do be done in love.”
-            <span>1 Corinthians 16:14</span>
-          </blockquote>
-        </aside>
+          <div class="donate-card">
+            <div class="donate-card-logo">
+              <img src="images/sdalogo-white.png" alt="Seventh-day Adventist Church logo">
+            </div>
+            <p>
+              Ready to support the church? Use the contact section to reach the treasury team and receive
+              the current giving details for tithes, offerings, and special donations.
+            </p>
+            <div class="donate-actions">
+              <a class="button button-donate" href="#contact">Donate</a>
+              <a class="button button-secondary button-light" href="#ministries">Explore Ministries</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -482,9 +502,17 @@
             </article>
           </div>
 
-          <div class="map-placeholder" role="img" aria-label="Map placeholder showing the church location">
+          <div class="map-placeholder">
             <div class="map-pin"></div>
-            <p>Embedded map placeholder for your church location</p>
+            <p>Use Google Maps for step-by-step directions to Emganwini Main Church.</p>
+            <a
+              class="button button-primary map-link"
+              href="https://maps.app.goo.gl/UDP4qPt2yA9zSBFL8"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Get Directions
+            </a>
           </div>
         </div>
 
@@ -521,7 +549,7 @@
       <div>
         <a class="brand footer-brand" href="#top">
           <span class="brand-mark">
-            <img class="brand-logo" src="images/sdalogo-removebg-preview.png" alt="">
+            <img class="brand-logo" src="images/sdalogo-white.png" alt="">
           </span>
           <span class="brand-copy">
             <span class="brand-name">Emganwini Main Church</span>

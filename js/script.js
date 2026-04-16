@@ -2,6 +2,8 @@ const siteHeader = document.querySelector(".site-header");
 const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector(".site-nav");
 const navLinks = document.querySelectorAll('.site-nav a[href^="#"]');
+const navDropdown = document.querySelector(".nav-dropdown");
+const navDropdownToggle = document.querySelector(".nav-dropdown-toggle");
 const topButton = document.querySelector(".back-to-top");
 const revealItems = document.querySelectorAll(".reveal");
 const sections = document.querySelectorAll("section[id]");
@@ -11,17 +13,62 @@ const yearTarget = document.querySelector("#current-year");
 
 const setHeaderState = () => {
   const hasScrolled = window.scrollY > 24;
-  siteHeader.classList.toggle("scrolled", hasScrolled);
-  topButton.classList.toggle("visible", window.scrollY > 480);
+
+  if (siteHeader) {
+    siteHeader.classList.toggle("scrolled", hasScrolled);
+  }
+
+  if (topButton) {
+    topButton.classList.toggle("visible", window.scrollY > 480);
+  }
+};
+
+const closeDropdown = () => {
+  if (!navDropdown || !navDropdownToggle) {
+    return;
+  }
+
+  navDropdown.classList.remove("is-open");
+  navDropdownToggle.setAttribute("aria-expanded", "false");
+};
+
+const openDropdown = () => {
+  if (!navDropdown || !navDropdownToggle) {
+    return;
+  }
+
+  navDropdown.classList.add("is-open");
+  navDropdownToggle.setAttribute("aria-expanded", "true");
+};
+
+const toggleDropdown = () => {
+  if (!navDropdown) {
+    return;
+  }
+
+  if (navDropdown.classList.contains("is-open")) {
+    closeDropdown();
+    return;
+  }
+
+  openDropdown();
 };
 
 const closeMenu = () => {
-  menuToggle.setAttribute("aria-expanded", "false");
-  siteNav.classList.remove("is-open");
-  document.body.classList.remove("menu-open");
+  if (menuToggle && siteNav) {
+    menuToggle.setAttribute("aria-expanded", "false");
+    siteNav.classList.remove("is-open");
+    document.body.classList.remove("menu-open");
+  }
+
+  closeDropdown();
 };
 
 const openMenu = () => {
+  if (!menuToggle || !siteNav) {
+    return;
+  }
+
   menuToggle.setAttribute("aria-expanded", "true");
   siteNav.classList.add("is-open");
   document.body.classList.add("menu-open");
@@ -29,6 +76,7 @@ const openMenu = () => {
 
 const toggleMenu = () => {
   const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+
   if (isExpanded) {
     closeMenu();
     return;
@@ -39,7 +87,7 @@ const toggleMenu = () => {
 
 const scrollToSection = (hash) => {
   const target = document.querySelector(hash);
-  if (!target) {
+  if (!target || !siteHeader) {
     return;
   }
 
@@ -49,43 +97,53 @@ const scrollToSection = (hash) => {
 };
 
 const setActiveLink = (id) => {
+  let dropdownChildIsActive = false;
+
   navLinks.forEach((link) => {
-    const isMatch = link.getAttribute("href") === `#${id}`;
-    link.classList.toggle("is-active", isMatch);
+    const href = link.getAttribute("href");
+    const isDonateLink = link.classList.contains("nav-donate");
+    const isMatch = href === `#${id}`;
+
+    if (!isDonateLink) {
+      link.classList.toggle("is-active", isMatch);
+    }
+
+    if (link.closest(".nav-dropdown-menu") && isMatch) {
+      dropdownChildIsActive = true;
+    }
   });
+
+  if (navDropdownToggle) {
+    navDropdownToggle.classList.toggle("is-active", dropdownChildIsActive);
+  }
 };
 
 if (menuToggle && siteNav) {
   menuToggle.addEventListener("click", toggleMenu);
+}
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      const targetHash = link.getAttribute("href");
-      closeMenu();
-      scrollToSection(targetHash);
-    });
-  });
-
-  document.addEventListener("click", (event) => {
-    const clickedInsideMenu = siteNav.contains(event.target) || menuToggle.contains(event.target);
-    if (!clickedInsideMenu) {
-      closeMenu();
-    }
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeMenu();
-    }
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 980) {
-      closeMenu();
-    }
+if (navDropdownToggle) {
+  navDropdownToggle.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleDropdown();
   });
 }
+
+navLinks.forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const targetHash = link.getAttribute("href");
+    const target = targetHash ? document.querySelector(targetHash) : null;
+
+    if (!targetHash || targetHash === "#" || !target) {
+      return;
+    }
+
+    event.preventDefault();
+    closeMenu();
+    scrollToSection(targetHash);
+  });
+});
 
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener("click", (event) => {
@@ -94,18 +152,39 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     }
 
     const href = link.getAttribute("href");
-    if (!href || href === "#") {
-      return;
-    }
+    const target = href ? document.querySelector(href) : null;
 
-    const target = document.querySelector(href);
-    if (!target) {
+    if (!href || href === "#" || !target) {
       return;
     }
 
     event.preventDefault();
     scrollToSection(href);
   });
+});
+
+document.addEventListener("click", (event) => {
+  const clickedMenuToggle = menuToggle && menuToggle.contains(event.target);
+  const clickedInsideNav = siteNav && siteNav.contains(event.target);
+  const clickedInsideDropdown = navDropdown && navDropdown.contains(event.target);
+
+  if (navDropdown && !clickedInsideDropdown) {
+    closeDropdown();
+  }
+
+  if (menuToggle && siteNav && !clickedInsideNav && !clickedMenuToggle) {
+    closeMenu();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeMenu();
+  }
+});
+
+window.addEventListener("resize", () => {
+  closeMenu();
 });
 
 if (revealItems.length) {
