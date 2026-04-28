@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thabisomaqhawengwenya-netizen.github.io/emganwinimain-website/sitemap.xml
